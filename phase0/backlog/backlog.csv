@@ -60,3 +60,6 @@ Then 429 is returned and usage is logged per key"
 ADV-10,Audit trail & change history,P3,2d,Unassigned,"Given an admin changes a rule or config
 When the change is saved
 Then an immutable audit record exists with who/when/what and diff"
+MVP-11,Enrich IP with GeoDB,P3,1d,Unassigned,"Given IPs in events
+When enrichment runs
+Then geo.country and geo.city fields are populated with ≥99% success rate"
