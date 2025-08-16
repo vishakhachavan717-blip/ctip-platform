@@ -1,0 +1,13 @@
+Thanks all — we closed Phase 0 Step 1. Highlights:
+- Vision: SIEM-lite + UEBA that ingests auth/network/web logs, detects common threats fast, and gives analysts clear, explainable incidents with one-click triage.
+- Personas scenarios: Analyst, Manager, Admin (locked)
+- MVP use-cases:
+  1. Login brute-force / credential stuffing
+  2. Impossible travel
+  3. Data exfiltration (bytes anomaly)
+  4. Suspicious admin actions (role/privilege changes)
+  5. Rare destination / beaconing
+- NFR targets: EPS=<250>, Search P95=<2s>, Alert SLA=<60s>, Retention=<7d hot / 30d warm / 90d cold>
+- Approver: <Name> (<email>)
+
+Next: I’ll create the MVP/Advanced backlog with acceptance criteria and draft the architecture diagram for review.
