@@ -4,3 +4,4 @@ UC-02,impossible travel,"auth + geo(ip) + user","rule + ml",high,"user; src_ip; 
 UC-03,data exfil (bytes anomaly),"network/web bytes, host","ml (outlier on bytes)",high,"@timestamp; host; bytes_out","hot=7d, warm=30d, cold=90d"
 UC-04,suspicious admin actions,"audit logs","rule + LLM summary",medium,"@timestamp; user; action; target","hot=7d, warm=30d, cold=90d"
 UC-05,rare destination / beaconing,"dns/http/netflow","rule (rare dest) + ml (periodicity)",medium,"@timestamp; host; dst_ip|domain","hot=7d, warm=30d, cold=90d"
+UC-06,oauth token theft,"auth + app logs","rule (abuse patterns) + ml",high,"user; client_id; @timestamp; action","hot=7d, warm=30d, cold=90d"
