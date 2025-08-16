@@ -29,3 +29,8 @@ SIEM-lite + UEBA that ingests auth/network/web logs, detects common threats fast
 - Use-cases locked: YYYY-MM-DD
 - NFR targets set: YYYY-MM-DD
 - Approver confirmed: YYYY-MM-DD
+### Meeting notes — $(date +"%Y-%m-%d")
+- Attendees: <list names>
+- Decisions: <brief bullets of decisions made>
+- Action items:
+  - <Owner> — <task> (due YYYY-MM-DD)
