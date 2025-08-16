@@ -1,0 +1,62 @@
+id,title,priority,estimate,owner,acceptance_criteria
+MVP-01,Ingest API (bulk JSON/NDJSON),P1,3d,Unassigned,"Given a POST to /ingest/json with an array of 1000 valid events
+When the request completes
+Then the API returns 200 and all documents are visible in the ES index within 2s"
+MVP-02,Elasticsearch index + ILM policy,P1,1d,Unassigned,"Given the cluster is up
+When index 'ctip-events-YYYY.MM.DD' rolls over
+Then ILM moves data to warm at 30d and cold at 90d and index mapping validates core fields"
+MVP-03,Auth parser + schema validation,P1,2d,Unassigned,"Given a batch with auth events (user, src_ip, @timestamp, status)
+When validation runs
+Then malformed events are rejected with reasons and valid events conform to schema v1"
+MVP-04,Search API (time/user/ip + pagination),P1,3d,Unassigned,"Given events exist over last 24h
+When I call /search?from=..&to=..&user=..&ip=..&page=1&size=50
+Then results are paginated, filtered correctly, and a histogram bucketizes by time"
+MVP-05,Log Explorer UI (filters + histogram),P1,4d,Unassigned,"Given the Search API is available
+When an analyst filters by time, user, and IP
+Then the UI shows a results table and a time histogram and supports next/previous pages"
+MVP-06,Rules worker framework & scheduler,P1,2d,Unassigned,"Given a rules config (YAML) with one enabled rule
+When the worker runs every 60s
+Then it evaluates the rule window and produces alerts to the alerts table"
+MVP-07,Rule: failed-login burst (≥5 fails in 1 min),P1,2d,Unassigned,"Given 1000 synthetic auth events with 50 failed bursts
+When the rules worker runs
+Then ≥90% of bursts generate an alert stored in the PG alerts table"
+MVP-08,Alert storage (Postgres) + API,P1,2d,Unassigned,"Given alerts are generated
+When I call GET /alerts?since=..
+Then I receive alert records with id, rule_id, user, src_ip, severity, first_seen, last_seen"
+MVP-09,Incident creation UI,P1,2d,Unassigned,"Given one or more alerts are selected
+When the analyst clicks 'Create Incident'
+Then an incident is created with attached alert ids and is visible in the Incident list"
+MVP-10,IsolationForest v1 scoring service,P2,3d,Unassigned,"Given a saved IsolationForest model artifact
+When /score receives a sample feature vector
+Then it returns a score [0..1] within 200ms p95 for batch size ≤100"
+
+ADV-01,LLM summarizer for incidents,P2,3d,Unassigned,"Given an incident with ≥3 alerts
+When I request a summary
+Then the service returns a concise incident narrative with top signals and suggested next steps"
+ADV-02,Autoencoder v2 anomaly model,P2,5d,Unassigned,"Given 7 days of labeled features
+When the model is trained
+Then validation AUC ≥0.80 and inference latency ≤100ms p95"
+ADV-03,Playbooks with webhooks,P2,3d,Unassigned,"Given a playbook 'disable user + block IP'
+When an incident reaches 'High'
+Then the system can trigger outbound webhooks with signed payloads and record execution status"
+ADV-04,Multi-tenant RBAC,P1,5d,Unassigned,"Given tenants A and B
+When a user from tenant A logs in
+Then they cannot access data or alerts from tenant B; roles: viewer/analyst/admin enforced"
+ADV-05,Dashboards & geo heatlayer,P3,4d,Unassigned,"Given events with geo fields
+When I open the dashboard
+Then I see time trends, top users/IPs, and a world map heatlayer of auth sources"
+ADV-06,Impossible travel detector (rule+ML),P2,3d,Unassigned,"Given two logins for the same user with implausible travel time
+When the detector runs hourly
+Then an alert is created with both locations, distance, and confidence score"
+ADV-07,Data exfil bytes anomaly detector,P2,3d,Unassigned,"Given 24h of netflow/web bytes_out per host
+When the detector runs
+Then it flags outliers beyond threshold with baseline stats and host context"
+ADV-08,Rare destination/beaconing detector,P2,3d,Unassigned,"Given DNS/HTTP destinations per host
+When periodicity or rare-domain heuristics match
+Then an alert is created with period score or rarity percentile"
+ADV-09,API keys + rate limiting,P2,2d,Unassigned,"Given an API client with a key
+When requests exceed 600/min
+Then 429 is returned and usage is logged per key"
+ADV-10,Audit trail & change history,P3,2d,Unassigned,"Given an admin changes a rule or config
+When the change is saved
+Then an immutable audit record exists with who/when/what and diff"
