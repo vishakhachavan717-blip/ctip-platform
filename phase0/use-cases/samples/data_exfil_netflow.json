@@ -1,0 +1,9 @@
+{
+  "@timestamp":"2025-08-15T13:10:00Z",
+  "event_type":"netflow",
+  "host":"db-01",
+  "dst_ip":"198.51.100.99",
+  "bytes_out": 987654321,
+  "protocol":"tcp",
+  "dst_port":443
+}

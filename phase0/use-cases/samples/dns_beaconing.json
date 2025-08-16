@@ -1,0 +1,9 @@
+{
+  "@timestamp":"2025-08-15T01:00:05Z",
+  "event_type":"dns",
+  "host":"workstation-22",
+  "query":"x9d3q.example-bad.tld",
+  "qtype":"A",
+  "dst_ip":"203.0.113.77",
+  "response_code":"NOERROR"
+}

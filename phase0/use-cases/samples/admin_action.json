@@ -1,0 +1,8 @@
+{
+  "@timestamp":"2025-08-15T11:22:33Z",
+  "event_type":"audit",
+  "user":"admin1",
+  "action":"add_role",
+  "target":"user:carol",
+  "details":{"role":"superadmin","method":"ui"}
+}

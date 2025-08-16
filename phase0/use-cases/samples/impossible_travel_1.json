@@ -1,0 +1,8 @@
+{
+  "@timestamp":"2025-08-15T09:00:00Z",
+  "event_type":"auth",
+  "user":"bob",
+  "src_ip":"198.51.100.10",
+  "geo":{"country":"US","city":"New York"},
+  "status":"success"
+}
