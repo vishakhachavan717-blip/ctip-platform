@@ -1,0 +1,23 @@
+@startuml
+title CTIP Architecture (Phase0)
+rectangle "Frontend (Vite/React)" as FE
+rectangle "FastAPI Gateway" as G
+rectangle "Ingest Service" as ING
+rectangle "Scoring (ML)" as ML
+rectangle "Rules Worker" as RULES
+database "Postgres" as PG
+cloud "Elasticsearch / OpenSearch" as ES
+rectangle "Redis (queues/cache)" as REDIS
+rectangle "MinIO/S3" as S3
+
+FE --> G : REST / WS
+G --> ING : /ingest
+ING --> ES : write logs
+ING --> REDIS : enqueue for scoring
+REDIS --> ML : feature batch
+ML --> REDIS : scores
+RULES --> PG : write alerts
+ES <---> G : search queries
+PG <---> G : incidents, users
+S3 <---> G : attachments / model artifacts
+@enduml
